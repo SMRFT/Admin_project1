@@ -6,7 +6,7 @@ const Home = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [users, setUsers] = useState({ blogs: [] });
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/attendance/showemp")
+        fetch("http://127.0.0.1:7000/attendance/showemp")
             .then(res => res.json())
             .then(
                 (data) => {

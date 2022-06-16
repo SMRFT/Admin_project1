@@ -12,7 +12,7 @@ function  Addemp() {
     console.log(JSON.stringify(data))
     try {
       console.log("post method")
-      let res = await fetch("http://localhost:8000/attendance/addemp", {
+      let res = await fetch("http://localhost:7000/attendance/addemp", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
