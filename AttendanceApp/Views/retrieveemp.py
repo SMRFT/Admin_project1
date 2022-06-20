@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 import jwt, datetime
 from AttendanceApp.models import Employee
-from AttendanceApp.serializers import EmployeeSerializer
+from AttendanceApp.serializers import EmployeeShowSerializer
 
 
 
@@ -11,5 +11,5 @@ class RetriveEmp(APIView):
     @csrf_exempt
     def get(self, request):
           emp = Employee.objects.all()
-          serializer=EmployeeSerializer(emp,many=True)
+          serializer=EmployeeShowSerializer(emp,many=True)
           return Response(serializer.data)
