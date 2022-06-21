@@ -8,9 +8,9 @@ from django.http import JsonResponse
 
 DOMAIN: str = 'http://localhost'
 PORT: str = '8000'
-API_KEY: str = '54cc82e7-9a68-4676-bb75-a3315748598c'
+#API_KEY: str = '54cc82e7-9a68-4676-bb75-a3315748598c'
 
-#API_KEY: str = 'da1647cc-856c-4c77-9aa2-0b221cea2754'
+API_KEY: str = 'da1647cc-856c-4c77-9aa2-0b221cea2754'
 
 compre_face: CompreFace = CompreFace(DOMAIN, PORT)
 
@@ -35,8 +35,10 @@ from AttendanceApp.models import Employee
 class Detection(APIView): #Face saving
     @csrf_exempt
     def post(self, request):
+        imp="D:\\profileimg\\"
         data=request.data        
-        face_collection.add(image_path=data["image_path"], subject=data["subject"])
+        if(face_collection.add(image_path=imp+data["image_path"], subject=data["subject"])):
+            return ("Updated to Compreface")
         
 
 class Recognition(APIView):

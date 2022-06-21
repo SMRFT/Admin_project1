@@ -48,13 +48,45 @@ class EmployeeView(APIView):
 """
 import os, os.path
 
+#Compreface
+
+from tkinter import Y
+from compreface import CompreFace
+from compreface.service import RecognitionService
+from compreface.collections import FaceCollection
+from compreface.collections.face_collections import Subjects
+from django.http import JsonResponse
+
+
+DOMAIN: str = 'http://localhost'
+PORT: str = '8000'
+#API_KEY: str = '54cc82e7-9a68-4676-bb75-a3315748598c'
+
+API_KEY: str = 'da1647cc-856c-4c77-9aa2-0b221cea2754'
+
+compre_face: CompreFace = CompreFace(DOMAIN, PORT)
+
+recognition: RecognitionService = compre_face.init_face_recognition(API_KEY)
+
+face_collection: FaceCollection = recognition.get_face_collection()
+
+subjects: Subjects = recognition.get_subjects()
+
+
+
 class EmployeeView(APIView):
     @csrf_exempt
     def post(self, request):
+
+        data=request.data    
+        imp="E:\\Boopathiraja\\Data Set\\BreakHis_100x\\Benign\\"
+        face_collection.add(image_path=imp+data["image_path"], subject=data["id"])
         serializer = EmployeeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save() #saving User profile
         return Response("New Employee Has Been Added Successfully")
+
+
 
 
 
