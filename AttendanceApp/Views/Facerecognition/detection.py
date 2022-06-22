@@ -51,3 +51,7 @@ class Recognition(APIView):
         y=x["result"]
         output=y[0]["subjects"][0]["subject"]
         return Response(output)
+
+
+
+

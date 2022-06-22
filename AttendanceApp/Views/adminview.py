@@ -78,9 +78,11 @@ class EmployeeView(APIView):
     @csrf_exempt
     def post(self, request):
 
-        data=request.data    
-        imp="E:\\Boopathiraja\\Data Set\\BreakHis_100x\\Benign\\"
-        face_collection.add(image_path=imp+data["image_path"], subject=data["id"])
+
+        imp="D:\\User_G\\Applications\\Attendance_management\\Images\\"
+        end=".jpg"
+        data=request.data        
+        face_collection.add(image_path=imp+data["subject"]+end, subject=data["name"])
         serializer = EmployeeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save() #saving User profile

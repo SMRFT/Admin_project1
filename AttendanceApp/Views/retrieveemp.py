@@ -13,3 +13,17 @@ class RetriveEmp(APIView):
           emp = Employee.objects.all()
           serializer=EmployeeShowSerializer(emp,many=True)
           return Response(serializer.data)
+
+class EmployeeEditView(APIView):
+
+    @csrf_exempt
+    def put(self, request,*args, **kwargs):
+        data=request.data        
+        user = Employee.objects.get( id =data["id"])
+        user.name=data["name"]
+        user.mobile=data["mobile"]
+        user.designation=data["designation"]
+        user.address=data["address"]
+        #user=data
+        user.save() 
+        return Response("Updated Successfully")
