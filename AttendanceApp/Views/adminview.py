@@ -60,9 +60,9 @@ from django.http import JsonResponse
 
 DOMAIN: str = 'http://localhost'
 PORT: str = '8000'
-#API_KEY: str = '54cc82e7-9a68-4676-bb75-a3315748598c'
+API_KEY: str = '54cc82e7-9a68-4676-bb75-a3315748598c'
 
-API_KEY: str = 'da1647cc-856c-4c77-9aa2-0b221cea2754'
+#API_KEY: str = 'da1647cc-856c-4c77-9aa2-0b221cea2754'
 
 compre_face: CompreFace = CompreFace(DOMAIN, PORT)
 
@@ -77,12 +77,9 @@ subjects: Subjects = recognition.get_subjects()
 class EmployeeView(APIView):
     @csrf_exempt
     def post(self, request):
-
-
         imp="D:\\User_G\\Applications\\Attendance_management\\Images\\"
-        end=".jpg"
         data=request.data        
-        face_collection.add(image_path=imp+data["subject"]+end, subject=data["name"])
+        face_collection.add(image_path=imp+data["userimgname"], subject=data["name"])
         serializer = EmployeeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save() #saving User profile

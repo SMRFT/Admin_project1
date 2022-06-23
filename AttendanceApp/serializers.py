@@ -5,7 +5,7 @@ from AttendanceApp.models import Employee
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model=Employee
-        fields=('id','name','mobile','designation','address','userimage')
+        fields=('id','name','mobile','designation','address','userimage','userimgname')
 
 
 class EmployeeShowSerializer(serializers.ModelSerializer):

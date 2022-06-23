@@ -7,6 +7,7 @@ function  Addemp() {
   const [designation, setdesignation] = useState("");
   const [address, setaddress] = useState("");
   const [userimage, setuserimage] = useState(null);
+  
   const [message, setMessage] = useState("");
   const handleFileSelect = (event) => {
     console.log(event.target.files[0])
@@ -20,7 +21,8 @@ function  Addemp() {
     data.append("mobile", mobile);
     data.append("designation", designation);
     data.append("address", address);
-    data.append("userimage", userimage, userimage.name);
+    data.append("userimage", userimage);//,userimage.name);
+    data.append("userimgname",userimage.name);
     for (var key of data.entries()) {
       console.log(key[0] + ', ' + key[1]);
   }
@@ -28,7 +30,7 @@ function  Addemp() {
       console.log("post method")
       const res = await axios({
         method: "post",
-        url: "http://localhost:8000/attendance/addemp",
+        url: "http://localhost:7000/attendance/addemp",
         data: data,
         headers: { "Content-Type": "multipart/form-data" },
       });

@@ -14,3 +14,4 @@ class Employee(models.Model):
     address  = models.CharField(max_length=500)
     #img = models.ImageField(storage=GridFSStorage())
     userimage = models.ImageField()
+    userimgname = models.CharField(max_length=500)
