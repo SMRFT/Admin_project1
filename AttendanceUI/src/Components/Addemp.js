@@ -17,12 +17,17 @@ function  Addemp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data=new FormData(); 
+    const data2=new FormData(); 
     data.append("name", name);
     data.append("mobile", mobile);
     data.append("designation", designation);
     data.append("address", address);
-    data.append("userimage", userimage);//,userimage.name);
+    data.append("userimage", userimage,userimage.name);
     data.append("userimgname",userimage.name);
+
+    data2.append("file",userimage);
+
+
     for (var key of data.entries()) {
       console.log(key[0] + ', ' + key[1]);
   }
@@ -34,6 +39,26 @@ function  Addemp() {
         data: data,
         headers: { "Content-Type": "multipart/form-data" },
       });
+
+      //compreface
+
+      const res2= fetch('http://localhost:8000/api/v1/recognition/faces/?subject=' + data["name"],
+      {
+          method: "POST",
+          headers: {
+              "x-api-key": '54cc82e7-9a68-4676-bb75-a3315748598c'
+          },
+          body:data2
+      }
+  ).then(r => r.json()).then(
+      function (data2) {
+          console.log('Data has been saved to compreface', data2);
+      })
+      .catch(function (error) {
+          alert('Request failed: ' + JSON.stringify(error));
+      });
+
+      
       //const resJson = await res.json();
       if (res.status === 200) {
         setname("");
@@ -83,7 +108,8 @@ function  Addemp() {
         <button type="submit">ADD EMPLOYEE</button>
         <div className="message">{message ? <p>{message}</p> : null}</div>
 
-    </form>   
+    </form>  
+  
   );
 }
 export default  Addemp;
