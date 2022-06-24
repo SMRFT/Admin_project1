@@ -6,7 +6,7 @@ function App() {
     navigate('/home');
   };
   const navigateToLogin = () => {
-    navigate('/home');
+    navigate('/login');
   };
   const navigateToLogout = () => {
     navigate('/home');
