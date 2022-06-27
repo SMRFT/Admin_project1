@@ -48,6 +48,7 @@ class EmployeeView(APIView):
 """
 import os, os.path
 
+'''
 #Compreface
 
 from tkinter import Y
@@ -71,15 +72,12 @@ recognition: RecognitionService = compre_face.init_face_recognition(API_KEY)
 face_collection: FaceCollection = recognition.get_face_collection()
 
 subjects: Subjects = recognition.get_subjects()
-
+'''
 
 
 class EmployeeView(APIView):
     @csrf_exempt
     def post(self, request):
-        imp="D:\\User_G\\Applications\\Attendance_management\\Images\\"
-        data=request.data        
-        face_collection.add(image_path=imp+data["userimgname"], subject=data["name"])
         serializer = EmployeeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save() #saving User profile

@@ -24,7 +24,8 @@ function  Addemp() {
     data.append("address", address);
     data.append("userimage", userimage,userimage.name);
     data.append("userimgname",userimage.name);
-
+    
+    
     data2.append("file",userimage);
 
 
@@ -32,7 +33,7 @@ function  Addemp() {
       console.log(key[0] + ', ' + key[1]);
   }
     try {
-      console.log("post method")
+      
       const res = await axios({
         method: "post",
         url: "http://localhost:7000/attendance/addemp",
@@ -42,30 +43,18 @@ function  Addemp() {
 
       //compreface
 
-      const res2= fetch('http://localhost:8000/api/v1/recognition/faces/?subject=' + data["name"],
+      const res2= fetch('http://localhost:8000/api/v1/recognition/faces/?subject=' +name,
       {
           method: "POST",
           headers: {
               "x-api-key": '54cc82e7-9a68-4676-bb75-a3315748598c'
           },
           body:data2
-      }
-  ).then(r => r.json()).then(
-      function (data2) {
-          console.log('Data has been saved to compreface', data2);
-      })
-      .catch(function (error) {
-          alert('Request failed: ' + JSON.stringify(error));
       });
-
+      console.log("name in data"+name)
       
       //const resJson = await res.json();
       if (res.status === 200) {
-        setname("");
-        setmobile("");
-        setdesignation("");
-        setaddress("");
-        setuserimage("");
         setMessage("Emp Added successfully");
       } else {
         setMessage("Some error occured");
