@@ -124,7 +124,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #for authentication
 
-#AUTH_USER_MODEL='DoctorApp.Doctors'
+AUTH_USER_MODEL='AttendanceApp.Admin'
 
 
 CORS_ORIGIN_ALLOW_ALL = True

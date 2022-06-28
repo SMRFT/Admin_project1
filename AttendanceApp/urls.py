@@ -4,6 +4,7 @@ from django.conf.urls import url
 from django.urls import path, include
 from AttendanceApp import views
 from AttendanceApp.Views.deteteemp import DeleteEmp
+from AttendanceApp.Views.adminview import AdminLogin,AdminReg
 from AttendanceApp.Views.retrieveemp import EmployeeEditView, RetriveEmp, EmployeeSearchView
 from AttendanceApp.Views.Facerecognition.detection import Detection, Recognition
 from .views import EmployeeView
@@ -21,7 +22,8 @@ urlpatterns=[
     path('reg',Recognition.as_view()),
     path('editemp',EmployeeEditView.as_view()),
     path('searchemployee',EmployeeSearchView.as_view()),
-
+    path('adminreg',AdminReg.as_view()),
+    path('adminlog',AdminLogin.as_view()),
 
 
     

@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 import jwt, datetime
-from AttendanceApp.models import Employee
-from AttendanceApp.serializers import EmployeeSerializer
+from AttendanceApp.models import Employee,Admin
+from AttendanceApp.serializers import EmployeeSerializer,AdminSerializer
 from PIL import Image
 import io
 
@@ -73,18 +73,58 @@ face_collection: FaceCollection = recognition.get_face_collection()
 
 subjects: Subjects = recognition.get_subjects()
 '''
-
+from rest_framework.exceptions import AuthenticationFailed
 
 class EmployeeView(APIView):
     @csrf_exempt
     def post(self, request):
-        serializer = EmployeeSerializer(data=request.data)
+       token = request.COOKIES.get('jwt')
+       if token:
+            serializer = EmployeeSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save() #saving User profile
+            return Response("New Employee Has Been Added Successfully")
+
+
+class AdminLogin(APIView): 
+    @csrf_exempt
+    def post(self, request):
+        email = request.data['email']
+        password = request.data['password']
+
+        user = Admin.objects.filter(email=email).first()
+            
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+
+        
+
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+
+        response = Response()
+
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+        return response
+
+
+class AdminReg(APIView):
+    @csrf_exempt
+    def post(self, request):
+        serializer = AdminSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save() #saving User profile
-        return Response("New Employee Has Been Added Successfully")
-
-
-
-
+        return Response(serializer.data)
 
 
