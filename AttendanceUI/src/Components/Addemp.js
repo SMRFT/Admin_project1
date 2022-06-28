@@ -54,7 +54,7 @@ function  Addemp() {
       console.log("name in data"+name)
       
       //const resJson = await res.json();
-      if (res.status === 200) {
+      if (res.status === 200 && res2.status === 200) {
         setMessage("Emp Added successfully");
       } else {
         setMessage("Some error occured");
