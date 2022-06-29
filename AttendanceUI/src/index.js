@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Home from './home';
-import Login from './Login';
+import Adminogin from './Adminlogin';
 
 import reportWebVitals from './reportWebVitals';
 import {
@@ -19,7 +19,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/home/*" element={<Home />} />
-      <Route path="/login/*" element={<Login />} />
+      <Route path="/adminlogin/*" element={<Adminogin />} />
 
     </Routes>
   </BrowserRouter>
